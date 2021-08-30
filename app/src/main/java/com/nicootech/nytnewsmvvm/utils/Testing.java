@@ -2,7 +2,7 @@ package com.nicootech.nytnewsmvvm.utils;
 
 import android.util.Log;
 
-import com.nicootech.nytnewsmvvm.model.Docs;
+import com.nicootech.nytnewsmvvm.models.Docs;
 
 import java.util.List;
 

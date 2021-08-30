@@ -1,6 +1,6 @@
-package com.nicootech.nytnewsmvvm.request;
+package com.nicootech.nytnewsmvvm.requests;
 
-import com.nicootech.nytnewsmvvm.request.responses.ArticleSearchResponse;
+import com.nicootech.nytnewsmvvm.requests.responses.ArticleSearchResponse;
 
 import retrofit2.Call;
 import retrofit2.http.GET;

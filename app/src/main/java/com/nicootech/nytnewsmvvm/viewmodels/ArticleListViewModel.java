@@ -1,6 +1,6 @@
-package com.nicootech.nytnewsmvvm.model.viewmodels;
+package com.nicootech.nytnewsmvvm.viewmodels;
 
-import com.nicootech.nytnewsmvvm.model.Docs;
+import com.nicootech.nytnewsmvvm.models.Docs;
 import com.nicootech.nytnewsmvvm.repositories.ArticleRepository;
 import java.util.List;
 import androidx.lifecycle.LiveData;

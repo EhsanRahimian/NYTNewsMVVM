@@ -1,7 +1,9 @@
-package com.nicootech.nytnewsmvvm.model;
+package com.nicootech.nytnewsmvvm.models;
 
 import android.os.Parcel;
 import android.os.Parcelable;
+
+import static com.nicootech.nytnewsmvvm.utils.Constants.IMAGE_PREFIX;
 
 public class MultiMedia implements Parcelable {
 
@@ -17,7 +19,7 @@ public class MultiMedia implements Parcelable {
     }
 
     public String getUrl() {
-        return "http://www.nytimes.com/"+url;
+        return IMAGE_PREFIX+url;
     }
     public void setUrl(String url) {
         this.url = url;

@@ -1,4 +1,4 @@
-package com.nicootech.nytnewsmvvm.request;
+package com.nicootech.nytnewsmvvm.requests;
 
 import com.nicootech.nytnewsmvvm.utils.Constants;
 

@@ -1,8 +1,8 @@
-package com.nicootech.nytnewsmvvm.request.responses;
+package com.nicootech.nytnewsmvvm.requests.responses;
 
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
-import com.nicootech.nytnewsmvvm.model.ResponseBean;
+import com.nicootech.nytnewsmvvm.models.ResponseBean;
 
 public class ArticleSearchResponse {
 

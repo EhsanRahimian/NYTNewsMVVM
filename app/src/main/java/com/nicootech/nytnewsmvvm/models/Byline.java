@@ -1,4 +1,4 @@
-package com.nicootech.nytnewsmvvm.model;
+package com.nicootech.nytnewsmvvm.models;
 
 import android.os.Parcel;
 import android.os.Parcelable;

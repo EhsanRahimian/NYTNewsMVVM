@@ -1,10 +1,10 @@
-package com.nicootech.nytnewsmvvm.request;
+package com.nicootech.nytnewsmvvm.requests;
 
 import android.util.Log;
 
 import com.nicootech.nytnewsmvvm.AppExecutors;
-import com.nicootech.nytnewsmvvm.model.Docs;
-import com.nicootech.nytnewsmvvm.request.responses.ArticleSearchResponse;
+import com.nicootech.nytnewsmvvm.models.Docs;
+import com.nicootech.nytnewsmvvm.requests.responses.ArticleSearchResponse;
 import com.nicootech.nytnewsmvvm.utils.Constants;
 
 import java.io.IOException;
@@ -81,14 +81,9 @@ public class ArticleApiClient {
                 if(response.code() == 200){
 
                     List<Docs> list = new ArrayList<>(((ArticleSearchResponse)response.body()).getResponse().getDocs());
-                    if(pageNumber == 1){
+
                         mDocs.postValue(list);
-                    }
-                    else{
-                        List<Docs>currentArticles = mDocs.getValue();
-                        currentArticles.addAll(list);
-                        mDocs.postValue(currentArticles);
-                    }
+
                 }
                 else {
                     String error = response.errorBody().string();

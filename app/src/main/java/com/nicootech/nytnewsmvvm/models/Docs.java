@@ -1,4 +1,4 @@
-package com.nicootech.nytnewsmvvm.model;
+package com.nicootech.nytnewsmvvm.models;
 
 import android.os.Parcel;
 import android.os.Parcelable;
@@ -13,9 +13,10 @@ public class Docs implements Parcelable {
     private Headline headline;
     private String _id;
     private Byline byline;
+    private String pub_date;
 
     public Docs(String web_url, String snippet, String lead_paragraph, List<MultiMedia> multimedia,
-                Headline headline, String _id, Byline byline) {
+                Headline headline, String _id, Byline byline, String pub_date) {
         this.web_url = web_url;
         this.snippet = snippet;
         this.lead_paragraph = lead_paragraph;
@@ -23,10 +24,12 @@ public class Docs implements Parcelable {
         this.headline = headline;
         this._id = _id;
         this.byline = byline;
+        this.pub_date = pub_date;
     }
 
     public Docs() {
     }
+
 
     protected Docs(Parcel in) {
         web_url = in.readString();
@@ -36,6 +39,7 @@ public class Docs implements Parcelable {
         headline = in.readParcelable(Headline.class.getClassLoader());
         _id = in.readString();
         byline = in.readParcelable(Byline.class.getClassLoader());
+        pub_date = in.readString();
     }
 
     public static final Creator<Docs> CREATOR = new Creator<Docs>() {
@@ -106,6 +110,14 @@ public class Docs implements Parcelable {
         this.byline = byline;
     }
 
+    public String getPub_date() {
+        return pub_date;
+    }
+
+    public void setPub_date(String pub_date) {
+        this.pub_date = pub_date;
+    }
+
     @Override
     public int describeContents() {
         return 0;
@@ -120,18 +132,6 @@ public class Docs implements Parcelable {
         dest.writeParcelable(headline, flags);
         dest.writeString(_id);
         dest.writeParcelable(byline, flags);
-    }
-
-    @Override
-    public String toString() {
-        return "Docs{" +
-                "web_url='" + web_url + '\'' +
-                ", snippet='" + snippet + '\'' +
-                ", lead_paragraph='" + lead_paragraph + '\'' +
-                ", multimedia=" + multimedia +
-                ", headline=" + headline +
-                ", _id='" + _id + '\'' +
-                ", byline=" + byline +
-                '}';
+        dest.writeString(pub_date);
     }
 }

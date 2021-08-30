@@ -1,12 +1,9 @@
 package com.nicootech.nytnewsmvvm.repositories;
 
-import com.nicootech.nytnewsmvvm.model.Docs;
-import com.nicootech.nytnewsmvvm.request.ArticleApiClient;
-
+import com.nicootech.nytnewsmvvm.models.Docs;
+import com.nicootech.nytnewsmvvm.requests.ArticleApiClient;
 import java.util.List;
 import androidx.lifecycle.LiveData;
-
-
 
 public class ArticleRepository {
     private static ArticleRepository instance;
@@ -28,9 +25,7 @@ public class ArticleRepository {
     }
 
     public void searchArticlesApi(String query, int pageNumber){
-        if(pageNumber == 0){
-            pageNumber = 1;
-        }
+
         mArticleApiClient.searchArticlesApi(query,pageNumber);
     }
 }
