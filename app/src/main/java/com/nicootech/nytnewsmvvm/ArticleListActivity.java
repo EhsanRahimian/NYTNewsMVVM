@@ -6,6 +6,7 @@ import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import android.os.Bundle;
+import android.util.Log;
 
 import com.nicootech.nytnewsmvvm.adapters.ArticleRecyclerAdapter;
 import com.nicootech.nytnewsmvvm.adapters.OnArticleListener;
@@ -46,6 +47,7 @@ public class ArticleListActivity extends BaseActivity  implements OnArticleListe
 //                        Log.d(TAG, "onChanged: "+doc.getHeadline().getMain());
 //                    }
                     mAdapter.setDocs(docs);
+                    //showProgressBar(false);
                 }
 
             }
@@ -67,7 +69,12 @@ public class ArticleListActivity extends BaseActivity  implements OnArticleListe
         searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             @Override
             public boolean onQueryTextSubmit(String s) {
+
+
+                mAdapter.displayLoading();
+                //showProgressBar(true);
                 mArticleListViewModel.searchArticlesApi(s,0);
+
                 return false;
             }
 

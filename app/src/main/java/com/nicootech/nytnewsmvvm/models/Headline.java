@@ -4,7 +4,7 @@ import android.os.Parcel;
 import android.os.Parcelable;
 
 public class Headline implements Parcelable {
-    private String main;
+    private String main = "";
 
     public Headline(String main) {
         this.main = main;
