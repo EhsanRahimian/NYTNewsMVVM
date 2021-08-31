@@ -1,10 +1,12 @@
 package com.nicootech.nytnewsmvvm;
 
+import androidx.appcompat.widget.SearchView;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import android.os.Bundle;
+
 import com.nicootech.nytnewsmvvm.adapters.ArticleRecyclerAdapter;
 import com.nicootech.nytnewsmvvm.adapters.OnArticleListener;
 import com.nicootech.nytnewsmvvm.models.Docs;
@@ -29,7 +31,7 @@ public class ArticleListActivity extends BaseActivity  implements OnArticleListe
 
         initRecyclerView();
         subscribeObservers();
-        testRetrofitRequest();
+        initSearchView();
     }
 
 
@@ -58,47 +60,22 @@ public class ArticleListActivity extends BaseActivity  implements OnArticleListe
     }
     private void searchArticlesApi(String query, int pageNumber){
 
-        mArticleListViewModel.searchArticlesApi(query,pageNumber);
     }
 
-    private void testRetrofitRequest(){
-//        NYTApi nytApi = ServiceGenerator.getNytApi();
-//
-//        Call<ArticleSearchResponse> responseCall = nytApi
-//                .searchArticle(
-//                        Constants.API_KEY,
-//                        "iran",
-//                        "1"
-//                );
-//
-//        responseCall.enqueue(new Callback<ArticleSearchResponse>() {
-//            @Override
-//            public void onResponse(Call<ArticleSearchResponse> call, Response<ArticleSearchResponse> response) {
-//                Log.d(TAG, "onResponse: server response"+response.toString());
-//                if(response.code() == 200){
-//                    Log.d(TAG, "onResponse: "+response.body().toString());
-//                    List<Docs> docs = new ArrayList<>(response.body().getResponse().getDocs());
-//                    for(Docs doc : docs){
-//                        Log.d(TAG, "onResponse: "+doc.getHeadline().getMain());
-//                    }
-//                }
-//                else{
-//                    try {
-//                        Log.d(TAG, "onResponse: "+response.errorBody().string());
-//                    }catch (IOException e){
-//                        e.printStackTrace();
-//
-//                    }
-//                }
-//            }
-//
-//            @Override
-//            public void onFailure(Call<ArticleSearchResponse> call, Throwable t) {
-//
-//            }
-//        });
-        searchArticlesApi("afghanistan",25);
+    private void initSearchView(){
+        final SearchView searchView = findViewById(R.id.search_view);
+        searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+            @Override
+            public boolean onQueryTextSubmit(String s) {
+                mArticleListViewModel.searchArticlesApi(s,0);
+                return false;
+            }
 
+            @Override
+            public boolean onQueryTextChange(String newText) {
+                return false;
+            }
+        });
     }
 
     @Override
