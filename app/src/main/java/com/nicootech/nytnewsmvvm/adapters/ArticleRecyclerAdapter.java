@@ -7,6 +7,7 @@ import android.view.ViewGroup;
 import com.bumptech.glide.Glide;
 import com.nicootech.nytnewsmvvm.R;
 import com.nicootech.nytnewsmvvm.models.Docs;
+import com.nicootech.nytnewsmvvm.utils.Constants;
 
 
 import org.jetbrains.annotations.NotNull;
@@ -23,6 +24,7 @@ public class ArticleRecyclerAdapter extends RecyclerView.Adapter<RecyclerView.Vi
 
     private static final int ARTICLE_TYPE = 1;
     private static final int LOADING_TYPE = 2;
+    private static final int CATEGORY_TYPE = 3;
 
     private List<Docs> mDocs;
     private OnArticleListener mOnArticleListener;
@@ -46,6 +48,10 @@ public class ArticleRecyclerAdapter extends RecyclerView.Adapter<RecyclerView.Vi
                 view = LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.layout_loading_list_item, viewGroup,false);
                 return new LoadingViewHolder(view);
             }
+            case CATEGORY_TYPE:{
+                view = LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.layout_category_list_item, viewGroup,false);
+                return new CategoryViewHolder(view, mOnArticleListener);
+            }
 
             default:{
                 view = LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.layout_article_list_item, viewGroup,false);
@@ -53,9 +59,6 @@ public class ArticleRecyclerAdapter extends RecyclerView.Adapter<RecyclerView.Vi
             }
 
         }
-//        View view = LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.layout_article_list_item, viewGroup,false);
-//                return new ArticleViewHolder(view, mOnArticleListener);
-
 
     }
 
@@ -91,12 +94,18 @@ public class ArticleRecyclerAdapter extends RecyclerView.Adapter<RecyclerView.Vi
             ((ArticleViewHolder)viewHolder).date.setText(mDocs.get(i).getPub_date().substring(0,mDocs.get(i).getPub_date().indexOf('T')));
 
         }
+        else if(itemViewType == CATEGORY_TYPE){
+            ((CategoryViewHolder)viewHolder).categoryTitle.setText(mDocs.get(i).getPub_date());
+        }
 
     }
 
     @Override
     public int getItemViewType(int position) {
-        if(mDocs.get(position).getPub_date().equals("LOADING...")){
+        if(mDocs.get(position).get_id()==""){
+            return CATEGORY_TYPE;
+        }
+        else if(mDocs.get(position).getPub_date().equals("LOADING...")){
             return LOADING_TYPE;
         }
         else{
@@ -124,6 +133,17 @@ public class ArticleRecyclerAdapter extends RecyclerView.Adapter<RecyclerView.Vi
             }
         }
         return false;
+    }
+    public void displaySearchCategories(){
+        List<Docs> categories = new ArrayList<>();
+        for(int i = 0; i < Constants.DEFAULT_SEARCH_CATEGORIES.length; i++){
+            Docs doc = new Docs();
+            doc.setPub_date(Constants.DEFAULT_SEARCH_CATEGORIES[i]);
+            doc.set_id("");
+            categories.add(doc);
+        }
+        mDocs = categories;
+        notifyDataSetChanged();
     }
 
     @Override

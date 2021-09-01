@@ -9,6 +9,8 @@ import androidx.lifecycle.ViewModel;
 public class ArticleListViewModel extends ViewModel {
 
     private ArticleRepository mArticleRepository;
+    private boolean mIsViewingArticles;
+    private boolean mIsPerformingQuery;
 
     public ArticleListViewModel() {
         mArticleRepository = ArticleRepository.getInstance();
@@ -19,7 +21,36 @@ public class ArticleListViewModel extends ViewModel {
     }
 
     public void searchArticlesApi(String query, int pageNumber){
-
+        mIsViewingArticles = true;
+        mIsPerformingQuery = true;
         mArticleRepository.searchArticlesApi(query,pageNumber);
+    }
+
+    public boolean isViewingArticles() {
+        return mIsViewingArticles;
+    }
+
+    public void setIsViewingArticles(boolean isViewingArticles) {
+        mIsViewingArticles = isViewingArticles;
+    }
+
+    public void setIsPerformingQuery(Boolean isPerformingQuery) {
+        mIsPerformingQuery = isPerformingQuery;
+    }
+    public boolean isPerformingQuery(){
+        return  mIsPerformingQuery;
+    }
+
+    public boolean onBackPressed(){
+        if(mIsPerformingQuery){
+            //cancel that query
+            mArticleRepository.cancelRequest();
+            mIsPerformingQuery = false;
+        }
+        if(mIsViewingArticles){
+            mIsViewingArticles = false;
+            return false;
+        }
+        return true;
     }
 }
