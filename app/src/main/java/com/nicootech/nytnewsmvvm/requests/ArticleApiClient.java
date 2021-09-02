@@ -81,8 +81,14 @@ public class ArticleApiClient {
                 if(response.code() == 200){
 
                     List<Docs> list = new ArrayList<>(((ArticleSearchResponse)response.body()).getResponse().getDocs());
-
-                        mDocs.postValue(list);
+                        if(pageNumber == 0){
+                            mDocs.postValue(list);
+                        }
+                        else{
+                            List<Docs> current = mDocs.getValue();
+                            current.addAll(list);
+                            mDocs.postValue(current);
+                        }
 
                 }
                 else {

@@ -2,14 +2,15 @@ package com.nicootech.nytnewsmvvm;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.widget.SearchView;
-import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import android.os.Bundle;
-
+import android.util.Log;
 import com.nicootech.nytnewsmvvm.adapters.ArticleRecyclerAdapter;
+import com.nicootech.nytnewsmvvm.adapters.EndlessRecyclerViewScrollListener;
 import com.nicootech.nytnewsmvvm.adapters.OnArticleListener;
+
 import com.nicootech.nytnewsmvvm.models.Docs;
 import com.nicootech.nytnewsmvvm.utils.VerticalSpacingItemDecorator;
 import com.nicootech.nytnewsmvvm.viewmodels.ArticleListViewModel;
@@ -19,6 +20,7 @@ import org.jetbrains.annotations.NotNull;
 
 import java.util.List;
 
+
 public class ArticleListActivity extends BaseActivity  implements OnArticleListener {
     private static final String TAG = "ArticleListActivity";
 
@@ -26,6 +28,7 @@ public class ArticleListActivity extends BaseActivity  implements OnArticleListe
     private RecyclerView mRecyclerView;
     private ArticleRecyclerAdapter mAdapter;
     private SearchView mSearchView;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -46,16 +49,13 @@ public class ArticleListActivity extends BaseActivity  implements OnArticleListe
 
 
     private void subscribeObservers(){
-        mArticleListViewModel.getDocs().observe(this, new Observer<List<Docs>>() {
-            @Override
-            public void onChanged(List<Docs> docs) {
-                if(docs != null){
-                    if(mArticleListViewModel.isViewingArticles()){
-                        Testing.print(docs,"articles test");
-                        mArticleListViewModel.setIsPerformingQuery(false);
-                        mAdapter.setDocs(docs);
-                        //showProgressBar(false);
-                    }
+        mArticleListViewModel.getDocs().observe(this, docs -> {
+            if(docs != null){
+                if(mArticleListViewModel.isViewingArticles()){
+                    Testing.print(docs,"articles test");
+                    mArticleListViewModel.setIsPerformingQuery(false);
+                    mAdapter.setDocs(docs);
+                    //showProgressBar(false);
                 }
             }
         });
@@ -66,13 +66,25 @@ public class ArticleListActivity extends BaseActivity  implements OnArticleListe
         VerticalSpacingItemDecorator itemDecorator = new VerticalSpacingItemDecorator(30);
         mRecyclerView.addItemDecoration(itemDecorator);
         mRecyclerView.setAdapter(mAdapter);
-        mRecyclerView.setLayoutManager(new LinearLayoutManager(this));
+        LinearLayoutManager layoutManager = new LinearLayoutManager(this);
+        mRecyclerView.setLayoutManager(layoutManager);
+
+
+        mRecyclerView.addOnScrollListener(new RecyclerView.OnScrollListener() {
+            @Override
+            public void onScrollStateChanged(@NonNull @NotNull RecyclerView recyclerView, int newState) {
+                super.onScrollStateChanged(recyclerView, newState);
+
+                if(!mRecyclerView.canScrollVertically(1)){
+                    //search next page
+                    mArticleListViewModel.searchNextPage();
+                }
+            }
+        });
 
 
     }
-    private void searchArticlesApi(String query, int pageNumber){
 
-    }
 
     private void initSearchView(){
 
@@ -97,7 +109,7 @@ public class ArticleListActivity extends BaseActivity  implements OnArticleListe
 
     @Override
     public void onArticleClick(int position) {
-
+        Log.d(TAG, "onArticleClick: clicked. " + position);
     }
 
     @Override
@@ -110,6 +122,7 @@ public class ArticleListActivity extends BaseActivity  implements OnArticleListe
     }
 
     private void displaySearchCategories(){
+        Log.d(TAG, "displaySearchCategories: called.");
         mArticleListViewModel.setIsViewingArticles(false);
         mAdapter.displaySearchCategories();
     }

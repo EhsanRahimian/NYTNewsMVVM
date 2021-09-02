@@ -4,6 +4,7 @@ import android.view.View;
 import android.widget.TextView;
 
 import com.nicootech.nytnewsmvvm.R;
+import com.nicootech.nytnewsmvvm.models.Docs;
 
 import org.jetbrains.annotations.NotNull;
 import androidx.annotation.NonNull;
@@ -33,5 +34,7 @@ public class ArticleViewHolder extends RecyclerView.ViewHolder implements View.O
     @Override
     public void onClick(View v) {
         onArticleListener.onArticleClick(getAbsoluteAdapterPosition());
+
+
     }
 }

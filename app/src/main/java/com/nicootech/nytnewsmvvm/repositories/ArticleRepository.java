@@ -8,8 +8,9 @@ import androidx.lifecycle.LiveData;
 public class ArticleRepository {
     private static ArticleRepository instance;
     private ArticleApiClient mArticleApiClient;
-//    private String mQuery;
-//    private int mPageNumber;
+
+    private String mQuery;
+    private int mPageNumber;
 
     public static ArticleRepository getInstance() {
         if(instance == null){
@@ -27,14 +28,16 @@ public class ArticleRepository {
     }
 
     public void searchArticlesApi(String query, int pageNumber){
-//        mQuery = query;
-//        mPageNumber = pageNumber;
+        mQuery = query;
+        mPageNumber = pageNumber;
+
+
         mArticleApiClient.searchArticlesApi(query,pageNumber);
     }
 
-//    public void searchNextPage(){
-//        searchArticlesApi(mQuery,mPageNumber + 1);
-//    }
+    public void searchNextPage(){
+        searchArticlesApi(mQuery,mPageNumber + 1);
+    }
 
     public void cancelRequest(){
         mArticleApiClient.cancelRequest();
