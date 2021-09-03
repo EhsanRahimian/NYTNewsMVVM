@@ -1,23 +1,21 @@
 package com.nicootech.nytnewsmvvm;
 
+
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.webkit.WebView;
-
 import com.nicootech.nytnewsmvvm.models.Docs;
-
-import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.widget.Toolbar;
+
 
 
 public class ArticleActivity extends BaseActivity {
     private WebView mWebView;
     private Toolbar mToolbar;
-    private ActionBar mActionBar;
 
     private static final String TAG = "ArticleActivity";
 
@@ -30,8 +28,11 @@ public class ArticleActivity extends BaseActivity {
         mWebView = findViewById(R.id.web_view_article);
         mToolbar = findViewById(R.id.toolbar);
         setSupportActionBar(mToolbar);
-        //mActionBar = getSupportActionBar();
-        //mActionBar.setDisplayHomeAsUpEnabled(true);
+
+//        mActionBar = getSupportActionBar();
+//        mActionBar.setDisplayHomeAsUpEnabled(true);
+
+
 
 
         getIncomingIntent();
@@ -46,14 +47,29 @@ public class ArticleActivity extends BaseActivity {
     }
 
     @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-
+    public boolean onCreateOptionsMenu(Menu menu){
         getMenuInflater().inflate(R.menu.menu_share_article, menu);
+
         return super.onCreateOptionsMenu(menu);
     }
 
+
     @Override
-    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+    public boolean onOptionsItemSelected(MenuItem item) {
+
+        switch (item.getItemId()){
+            case R.id.share_item:
+                Intent sharingIntent = new Intent(Intent.ACTION_SEND);
+                sharingIntent.setType("text/plain");
+                String body = mWebView.getUrl();
+                String subject = "NewYorkTimes: ";
+                sharingIntent.putExtra(Intent.EXTRA_TEXT,body);
+                sharingIntent.putExtra(Intent.EXTRA_SUBJECT,subject);
+                startActivity(Intent.createChooser(sharingIntent,"Share using"));
+                break;
+        }
+
         return super.onOptionsItemSelected(item);
     }
+
 }

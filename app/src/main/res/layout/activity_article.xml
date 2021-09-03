@@ -15,14 +15,17 @@
             android:id="@+id/toolbar"
             android:layout_width="match_parent"
             android:layout_height="?attr/actionBarSize"
-            android:background="@color/red_700" />
+            android:background="@color/red_700"
+            app:title="NEW YORK TIMES"
+            />
 
     </com.google.android.material.appbar.AppBarLayout>
 
     <WebView
         android:id="@+id/web_view_article"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        app:layout_behavior="@string/appbar_scrolling_view_behavior">
     </WebView>
 
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

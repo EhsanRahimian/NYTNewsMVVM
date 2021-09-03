@@ -116,7 +116,6 @@ public class ArticleRecyclerAdapter extends RecyclerView.Adapter<RecyclerView.Vi
         /////
         else if(position == mDocs.size()-1
                 && position != 0
-                && !mDocs.get(position).getPub_date().equals("EXHAUSTED...")
         /////
         ){
             return LOADING_TYPE;

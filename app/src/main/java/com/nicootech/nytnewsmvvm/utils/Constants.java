@@ -9,8 +9,8 @@ public class Constants {
     //"OKsEwghCzAPR3kRr7Hp51cFn2tMfXWgj";
 
     public static final String[] DEFAULT_SEARCH_CATEGORIES =
-            {"World","Silicon Valley", "USA", "Politics","N.Y", "Art", "Business", "Tech", "Science",
-                    "Health", "Travel", "Sports", "Books", "Style", "Travel",
-                    "Real Estate", "Covid", "Afghanistan", "Opinion"};
+            {"World","USA","Covid","N.Y","Art","Silicon Valley","Business","Tech","Politics","Science",
+                    "Health", "Travel", "Sports", "Books","style", "Travel",
+                    "Real Estate","Afghanistan", "Opinion"};
 
 }
