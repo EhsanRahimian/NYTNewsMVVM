@@ -5,20 +5,18 @@ import androidx.appcompat.widget.SearchView;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import com.nicootech.nytnewsmvvm.adapters.ArticleRecyclerAdapter;
-import com.nicootech.nytnewsmvvm.adapters.EndlessRecyclerViewScrollListener;
 import com.nicootech.nytnewsmvvm.adapters.OnArticleListener;
 
-import com.nicootech.nytnewsmvvm.models.Docs;
 import com.nicootech.nytnewsmvvm.utils.VerticalSpacingItemDecorator;
 import com.nicootech.nytnewsmvvm.viewmodels.ArticleListViewModel;
 import com.nicootech.nytnewsmvvm.utils.Testing;
 
 import org.jetbrains.annotations.NotNull;
-
-import java.util.List;
 
 
 public class ArticleListActivity extends BaseActivity  implements OnArticleListener {
@@ -110,6 +108,10 @@ public class ArticleListActivity extends BaseActivity  implements OnArticleListe
     @Override
     public void onArticleClick(int position) {
         Log.d(TAG, "onArticleClick: clicked. " + position);
+
+        Intent intent = new Intent(this, ArticleActivity.class);
+        intent.putExtra("article",mAdapter.getSelectedArticle(position));
+        startActivity(intent);
     }
 
     @Override

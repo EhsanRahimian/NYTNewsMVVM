@@ -173,5 +173,14 @@ public class ArticleRecyclerAdapter extends RecyclerView.Adapter<RecyclerView.Vi
         mDocs = categories;
         notifyDataSetChanged();
     }
+    ////////////////////////////////////////////////////////////////////////
+    public Docs getSelectedArticle(int position){
+        if(mDocs != null){
+            if(mDocs.size() > 0){
+                return mDocs.get(position);
+            }
+        }
+        return null;
+    }
 
 }

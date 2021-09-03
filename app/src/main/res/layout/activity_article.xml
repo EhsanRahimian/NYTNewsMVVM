@@ -12,11 +12,10 @@
         >
 
         <androidx.appcompat.widget.Toolbar
-            android:id="@+id/share_toolbar"
+            android:id="@+id/toolbar"
             android:layout_width="match_parent"
             android:layout_height="?attr/actionBarSize"
-            android:background="@color/red_700"
-            />
+            android:background="@color/red_700" />
 
     </com.google.android.material.appbar.AppBarLayout>
 

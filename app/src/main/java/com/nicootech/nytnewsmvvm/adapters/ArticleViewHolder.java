@@ -1,5 +1,6 @@
 package com.nicootech.nytnewsmvvm.adapters;
 
+import android.content.Intent;
 import android.view.View;
 import android.widget.TextView;
 
@@ -34,6 +35,7 @@ public class ArticleViewHolder extends RecyclerView.ViewHolder implements View.O
     @Override
     public void onClick(View v) {
         onArticleListener.onArticleClick(getAbsoluteAdapterPosition());
+
 
 
     }
